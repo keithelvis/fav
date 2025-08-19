@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>GitHub Releases & Pre-releases Monitor</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+    h1 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border-bottom: 1px solid #ccc; text-align: left; }
+    th { background: #333; color: #fff; }
+    tr:hover { background: #f1f1f1; }
+    .loading { color: gray; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>GitHub 最新版本与预发布监控</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>项目</th>
+        <th>最新正式 Release</th>
+        <th>发布时间</th>
+        <th>最新 Pre-release</th>
+        <th>发布时间</th>
+      </tr>
+    </thead>
+    <tbody id="repo-table">
+      <tr><td colspan="5" class="loading">正在加载数据…</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    const repos = [
+      "2dust/v2rayNG",
+      "2dust/v2rayN",
+      "MetaCubeX/ClashMetaForAndroid",
+      "session-foundation/session-android",
+      "TeamNewPipe/NewPipe",
+      "SagerNet/sing-box",
+      "mihomo-party-org/mihomo-party",
+      "MatsuriDayo/NekoBoxForAndroid",
+      "hiddify/hiddify-app",
+      "yt-dlp/yt-dlp",
+      "JunkFood02/Seal",
+      "localsend/localsend"
+    ];
+
+    async function fetchReleases(repo) {
+      try {
+        const resp = await fetch(`https://api.github.com/repos/${repo}/releases`);
+        if (!resp.ok) throw new Error("API 请求失败");
+        const data = await resp.json();
+        return Array.isArray(data) ? data : [];
+      } catch (err) {
+        console.error(`Error fetching ${repo}:`, err);
+        return [];
+      }
+    }
+
+    function formatDate(iso) {
+      return iso ? new Date(iso).toLocaleString() : "-";
+    }
+
+    async function loadData() {
+      const tbody = document.getElementById("repo-table");
+      tbody.innerHTML = ""; // 清空 loading 状态
+
+      for (const repo of repos) {
+        const releases = await fetchReleases(repo);
+        const stable = releases.find(r => !r.prerelease);
+        const pre = releases.find(r => r.prerelease);
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><a href="https://github.com/${repo}" target="_blank">${repo}</a></td>
+          <td>${stable?.tag_name || "-"}</td>
+          <td>${formatDate(stable?.published_at)}</td>
+          <td>${pre?.tag_name || "-"}</td>
+          <td>${formatDate(pre?.published_at)}</td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", loadData);
+  </script>
+</body>
+</html>

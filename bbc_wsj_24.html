@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>BBC & WSJ - 24小时内新闻列表</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --bg:#f6f7fb; --card:#fff; --text:#1f2937; --muted:#6b7280; --border:#e5e7eb; }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue','Noto Sans',Arial,'Apple Color Emoji','Segoe UI Emoji';}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px;}
+    h1{font-size:24px;margin:0 0 12px;}
+    .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width: 980px){ .grid{grid-template-columns:1fr 1fr} }
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.04)}
+    .card h2{margin:0 0 8px;font-size:18px}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+    button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}
+    button:hover{background:#f3f4f6}
+    .count{margin-left:auto;color:var(--muted);font-size:12px}
+    .item{padding:10px 0;border-top:1px dashed var(--border)}
+    .item:first-child{border-top:0}
+    .item a{color:#0f62fe;text-decoration:none}
+    .item a:hover{text-decoration:underline}
+    .time{color:var(--muted);font-size:12px;margin-top:4px}
+    .status{font-size:13px;color:var(--muted);margin:8px 0}
+    .error{color:#dc2626}
+    .footer{margin-top:20px;color:var(--muted);font-size:12px}
+    .badge{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;font-size:11px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>BBC & 华尔街日报：最近 24 小时新闻</h1>
+    <div class="sub">
+      实时从 RSS 获取，按发布时间倒序；各媒体单独展示。
+      <span class="badge" id="updatedAt">未刷新</span>
+    </div>
+
+    <div class="grid">
+      <!-- BBC 模块 -->
+      <section class="card" id="bbc">
+        <h2>BBC 中文（繁）</h2>
+        <div class="controls">
+          <button data-action="refresh" data-feed="bbc">刷新</button>
+          <span class="count" id="bbc-count">—</span>
+        </div>
+        <div class="status" id="bbc-status">加载中…</div>
+        <div id="bbc-list"></div>
+      </section>
+
+      <!-- WSJ 模块 -->
+      <section class="card" id="wsj">
+        <h2>华尔街日报（中文网）</h2>
+        <div class="controls">
+          <button data-action="refresh" data-feed="wsj">刷新</button>
+          <span class="count" id="wsj-count">—</span>
+        </div>
+        <div class="status" id="wsj-status">加载中…</div>
+        <div id="wsj-list"></div>
+      </section>
+    </div>
+
+    <div class="footer">
+      数据源：
+      <a href="https://feeds.bbci.co.uk/zhongwen/trad/rss.xml" target="_blank" rel="noreferrer">BBC RSS</a> ・
+      <a href="https://cn.wsj.com/zh-hans/rss" target="_blank" rel="noreferrer">WSJ RSS</a>
+      ｜仅做客户端读取，不存储任何数据。
+    </div>
+  </div>
+
+  <script>
+    // ===== 配置区域 =====
+    const FEEDS = {
+      bbc: "https://feeds.bbci.co.uk/zhongwen/trad/rss.xml",
+      wsj: "https://cn.wsj.com/zh-hans/rss",
+    };
+    // 24 小时窗口
+    const HOURS_WINDOW = 24;
+
+    // 多级回退的 CORS 获取（直连 → AllOrigins → isomorphic-git CORS）
+    async function fetchWithCors(url) {
+      // 1) 直连
+      try {
+        const r = await fetch(url, { headers: { "Accept": "application/rss+xml,application/xml;text/xml;q=0.9,*/*;q=0.8" } });
+        if (r.ok) return r.text();
+      } catch(e) {}
+
+      // 2) AllOrigins（原样返回）
+      try {
+        const r2 = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+        if (r2.ok) return r2.text();
+      } catch(e) {}
+
+      // 3) isomorphic-git CORS
+      const corsBridge = "https://cors.isomorphic-git.org/";
+      try {
+        const r3 = await fetch(corsBridge + url);
+        if (r3.ok) return r3.text();
+      } catch(e) {}
+
+      throw new Error("无法获取 RSS（可能被 CORS 限制或源站暂不可达）");
+    }
+
+    // 解析 RSS -> [{title, link, pubDate: Date}]
+    function parseRss(xmlText) {
+      const doc = new DOMParser().parseFromString(xmlText, "application/xml");
+      // 错误处理
+      const parserErr = doc.querySelector("parsererror");
+      if (parserErr) throw new Error("RSS 解析失败");
+
+      const items = Array.from(doc.querySelectorAll("item"));
+      // Atom 兼容（如遇到 <entry>）
+      const entries = items.length ? items : Array.from(doc.querySelectorAll("entry"));
+
+      return entries.map(el => {
+        // 兼容 rss/atom 的字段命名
+        const title = (el.querySelector("title")?.textContent || "").trim();
+        let link = (el.querySelector("link")?.getAttribute?.("href") || el.querySelector("link")?.textContent || "").trim();
+
+        // pubDate / updated / published
+        const pubRaw =
+          el.querySelector("pubDate")?.textContent?.trim() ||
+          el.querySelector("updated")?.textContent?.trim() ||
+          el.querySelector("published")?.textContent?.trim() ||
+          "";
+
+        let pubDate = null;
+        if (pubRaw) {
+          const t = new Date(pubRaw);
+          if (!isNaN(t.valueOf())) pubDate = t;
+        }
+        return { title, link, pubDate };
+      });
+    }
+
+    function withinLastHours(date, hours) {
+      if (!date) return false;
+      const now = Date.now();
+      return (now - date.getTime()) <= hours * 3600 * 1000;
+    }
+
+    function renderList(rootId, statusId, countId, list) {
+      const root = document.getElementById(rootId);
+      const status = document.getElementById(statusId);
+      const countEl = document.getElementById(countId);
+
+      const frag = document.createDocumentFragment();
+      list.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "item";
+        const title = item.title || "(无标题)";
+        const href = item.link || "#";
+        const timeStr = item.pubDate ? item.pubDate.toLocaleString() : "未知时间";
+        div.innerHTML = `
+          <a href="${href}" target="_blank" rel="noreferrer">${escapeHtml(title)}</a>
+          <div class="time">🕒 ${timeStr}</div>
+        `;
+        frag.appendChild(div);
+      });
+
+      // 清空并插入
+      const listBox = document.getElementById(rootId + "-list") || root.querySelector("div[id$='-list']");
+      listBox.innerHTML = "";
+      listBox.appendChild(frag);
+
+      status.textContent = list.length ? "" : "最近 24 小时内暂无更新";
+      countEl.textContent = `${list.length} 篇`;
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    async function loadFeed(key) {
+      const url = FEEDS[key];
+      const statusId = `${key}-status`;
+      const listRootId = key; // section id
+      const countId = `${key}-count`;
+      const statusEl = document.getElementById(statusId);
+      statusEl.classList.remove("error");
+      statusEl.textContent = "加载中…";
+
+      try {
+        const xml = await fetchWithCors(url);
+        const all = parseRss(xml)
+          .filter(x => x.title || x.link)         // 基本可用
+          .filter(x => withinLastHours(x.pubDate, HOURS_WINDOW))
+          .sort((a,b) => (b.pubDate?.getTime() || 0) - (a.pubDate?.getTime() || 0));
+
+        renderList(listRootId, statusId, countId, all);
+        return true;
+      } catch (err) {
+        statusEl.textContent = "加载失败：" + (err.message || err);
+        statusEl.classList.add("error");
+        renderList(listRootId, statusId, countId, []); // 清空
+        return false;
+      }
+    }
+
+    async function refreshAll() {
+      const ok1 = await loadFeed("bbc");
+      const ok2 = await loadFeed("wsj");
+      document.getElementById("updatedAt").textContent =
+        "已刷新：" + new Date().toLocaleString() + (ok1 && ok2 ? "" : "（部分失败）");
+    }
+
+    // 事件绑定 & 首次加载
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action='refresh']");
+      if (!btn) return;
+      const feedKey = btn.getAttribute("data-feed");
+      if (feedKey) loadFeed(feedKey).then(() => {
+        document.getElementById("updatedAt").textContent =
+          "已刷新：" + new Date().toLocaleString();
+      });
+    });
+
+    refreshAll();
+    // 如需自动轮询，可打开下方注释（每 15 分钟刷新一次）
+    // setInterval(refreshAll, 15 * 60 * 1000);
+  </script>
+</body>
+</html>

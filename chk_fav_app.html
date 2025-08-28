@@ -73,7 +73,7 @@
 
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td><a href="https://github.com/${repo}" target="_blank">${repo}</a></td>
+          <td><a href="https://github.com/${repo}" target="_blank">${repo}/releases</a></td>
           <td>${stable?.tag_name || "-"}</td>
           <td>${formatDate(stable?.published_at)}</td>
           <td>${pre?.tag_name || "-"}</td>
@@ -87,6 +87,7 @@
   </script>
 </body>
 </html>
+
 
 
 

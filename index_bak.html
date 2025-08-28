@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my portal</title>
+    <style>
+        /* CSS 变量定义莫兰迪配色 */
+        :root {
+            --morandi-bg-color: #f5f5f5; /* 浅灰背景 */
+            --morandi-text-color: #555555; /* 深灰文本 */
+            --morandi-link-color: #8899a6; /* 灰蓝链接 */
+            --morandi-hover-bg: #d7bfa5;  /* 灰粉色悬停背景 */
+            --morandi-hover-text: #ffffff; /* 悬停时白色文本 */
+            --morandi-section-title: #7a7a7a; /* 标题深灰色 */
+            
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "PingFang SC", "Microsoft YaHei";
+        }
+
+        body {
+            background-color: var(--morandi-bg-color);
+            color: var(--morandi-text-color);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 2rem;
+        }
+
+        /* 页面主体容器 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 页面大标题 */
+        .main-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--morandi-text-color);
+            margin-bottom: 2rem;
+            letter-spacing: 0.1rem;
+        }
+
+        /* 链接分组 */
+        .link-group {
+            margin-bottom: 3rem;
+        }
+
+        /* 分组小标题 */
+        .link-group h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--morandi-section-title);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* 链接网格容器 */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem; /* 网格间距 */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* 链接样式 */
+        .links-grid a {
+            display: block;
+            padding: 1.2rem;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: var(--morandi-link-color);
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .links-grid a:hover {
+            background-color: var(--morandi-hover-bg);
+            color: var(--morandi-hover-text);
+            transform: translateY(-3px); /* 向上微移 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="main-title">子衿雅墨</h1>
+
+     <div class="link-group">
+            <h2>外语学习</h2>
+            <ul class="links-grid">
+                <li><a href="https://flbook.com.cn/u/272955" target="_blank">上海英文学生报</a></li>
+                <li><a href="https://www.chinadaily.com.cn/" target="_blank">China Daily</a></li>
+                <li><a href="https://github.com/knowledgefxg/learning-english" target="_blank">资源合集</a></li>
+                <li><a href="https://translate.google.com" target="_blank">谷歌翻译</a></li>
+                <li><a href="https://www.deepl.com/zh/translator" target="_blank">DeepL</a></li>
+                <li><a href="https://www.oed.com" target="_blank">牛津词典</a></li>
+            </ul>
+        </div>
+        
+        <div class="link-group">
+            <h2>常用工具</h2>
+            <ul class="links-grid">
+                <li><a href="https://keithelvis.github.io/fav/chk_fav_app3.html" target="_blank">Magic Tools</a></li>
+                <li><a href="https://mail.google.com" target="_blank">Gmail 邮箱</a></li>
+                <li><a href="https://calendar.google.com" target="_blank">谷歌日历</a></li>
+                <li><a href="https://translate.google.com" target="_blank">谷歌翻译</a></li>
+            </ul>
+        </div>
+
+        <div class="link-group">
+            <h2>新闻与媒体</h2>
+            <ul class="links-grid">
+                <li><a href="https://keithelvis.github.io/fav/bbc_wsj_24.html" target="_blank">新闻聚合</a></li>
+                <li><a href="https://www.nytimes.com" target="_blank">纽约时报</a></li>
+                <li><a href="https://www.bbc.com" target="_blank">BBC 新闻</a></li>
+                <li><a href="https://www.reuters.com" target="_blank">路透社</a></li>
+                <li><a href="https://www.economist.com" target="_blank">经济学人</a></li>
+            </ul>
+        </div>
+
+        <div class="link-group">
+            <h2>开发资源</h2>
+            <ul class="links-grid">
+                <li><a href="https://github.com" target="_blank">GitHub</a></li>
+                <li><a href="https://stackoverflow.com" target="_blank">Stack Overflow</a></li>
+                <li><a href="https://developer.mozilla.org" target="_blank">MDN Web 文档</a></li>
+                <li><a href="https://www.figma.com" target="_blank">Figma 设计</a></li>
+            </ul>
+        </div>
+
+        <div class="link-group">
+            <h2>娱乐与生活</h2>
+            <ul class="links-grid">
+                <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                <li><a href="https://open.spotify.com" target="_blank">Spotify 音乐</a></li>
+                <li><a href="https://www.netflix.com" target="_blank">Netflix 视频</a></li>
+                <li><a href="https://www.pinterest.com" target="_blank">Pinterest 灵感</a></li>
+            </ul>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+

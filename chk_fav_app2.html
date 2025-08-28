@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Release Tracker (莫兰迪风格)</title>
+    <style>
+        /* CSS 变量定义莫兰迪配色 */
+        :root {
+            --morandi-bg-color: #f5f5f5; /* 整体页面背景：柔和的浅灰 */
+            --morandi-text-color: #555555; /* 主体文本颜色：深灰 */
+            --morandi-link-color: #8899a6; /* 链接颜色：灰蓝 */
+            --morandi-link-hover-color: #d7bfa5; /* 链接悬停颜色：灰粉 */
+            --morandi-table-border: #e0e0e0; /* 表格边框：非常浅的灰 */
+            --morandi-header-bg: #e8e8e8; /* 表头背景：稍深的浅灰 */
+            --morandi-even-row-bg: #fafafa; /* 偶数行背景：更浅的灰 */
+            --morandi-dark-text: #4a4a4a; /* 更深的文本颜色 */
+
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "PingFang SC", "Microsoft YaHei";
+        }
+
+        body {
+            background-color: var(--morandi-bg-color);
+            color: var(--morandi-text-color);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff; /* 内容区域的背景色，可以更白一点 */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* 柔和的阴影 */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--morandi-dark-text);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.05rem;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse; /* 移除单元格间距 */
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--morandi-table-border);
+        }
+
+        th {
+            background-color: var(--morandi-header-bg);
+            color: var(--morandi-dark-text);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        /* 偶数行背景色，增加可读性 */
+        tbody tr:nth-child(even) {
+            background-color: var(--morandi-even-row-bg);
+        }
+
+        /* 鼠标悬停在行上时的效果 */
+        tbody tr:hover {
+            background-color: #e0e8ed; /* 浅灰蓝，莫兰迪色系 */
+            cursor: pointer;
+        }
+
+        /* 链接样式 */
+        a {
+            color: var(--morandi-link-color);
+            text-decoration: none; /* 移除下划线 */
+            transition: color 0.3s ease, background-color 0.3s ease;
+            padding: 0.2rem 0; /* 增加点击区域 */
+        }
+
+        a:hover {
+            color: var(--morandi-hover-text);
+            background-color: var(--morandi-link-hover-color);
+            border-radius: 3px;
+            padding: 0.2rem 0.4rem;
+        }
+
+        .note {
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
+            color: var(--morandi-section-title);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>GitHub Releases Tracker</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>项目名称</th>
+                    <th>最新版本</th>
+                    <th>发布时间</th>
+                    <th>下载链接</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://github.com/2dust/v2rayNG" target="_blank">2dust/v2rayNG</a></td>
+                    <td><span id="v2rayNG_version">加载中...</span></td>
+                    <td><span id="v2rayNG_date">加载中...</span></td>
+                    <td><a id="v2rayNG_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/2dust/v2rayN" target="_blank">2dust/v2rayN</a></td>
+                    <td><span id="v2rayN_version">加载中...</span></td>
+                    <td><span id="v2rayN_date">加载中...</span></td>
+                    <td><a id="v2rayN_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/MetaCubeX/ClashMetaForAndroid" target="_blank">MetaCubeX/ClashMetaForAndroid</a></td>
+                    <td><span id="clashmeta_version">加载中...</span></td>
+                    <td><span id="clashmeta_date">加载中...</span></td>
+                    <td><a id="clashmeta_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/session-foundation/session-android" target="_blank">session-foundation/session-android</a></td>
+                    <td><span id="session_version">加载中...</span></td>
+                    <td><span id="session_date">加载中...</span></td>
+                    <td><a id="session_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/TeamNewPipe/NewPipe" target="_blank">TeamNewPipe/NewPipe</a></td>
+                    <td><span id="newpipe_version">加载中...</span></td>
+                    <td><span id="newpipe_date">加载中...</span></td>
+                    <td><a id="newpipe_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/SagerNet/sing-box" target="_blank">SagerNet/sing-box</a></td>
+                    <td><span id="singbox_version">加载中...</span></td>
+                    <td><span id="singbox_date">加载中...</span></td>
+                    <td><a id="singbox_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/mihomo-party-org/mihomo-party" target="_blank">mihomo-party-org/mihomo-party</a></td>
+                    <td><span id="mihomo_version">加载中...</span></td>
+                    <td><span id="mihomo_date">加载中...</span></td>
+                    <td><a id="mihomo_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/MatsuriDayo/NekoBoxForAndroid" target="_blank">MatsuriDayo/NekoBoxForAndroid</a></td>
+                    <td><span id="nekobox_version">加载中...</span></td>
+                    <td><span id="nekobox_date">加载中...</span></td>
+                    <td><a id="nekobox_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/hiddify/hiddify-app" target="_blank">hiddify/hiddify-app</a></td>
+                    <td><span id="hiddify_version">加载中...</span></td>
+                    <td><span id="hiddify_date">加载中...</span></td>
+                    <td><a id="hiddify_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp/yt-dlp</a></td>
+                    <td><span id="ytdlp_version">加载中...</span></td>
+                    <td><span id="ytdlp_date">加载中...</span></td>
+                    <td><a id="ytdlp_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/JunkFood02/Seal" target="_blank">JunkFood02/Seal</a></td>
+                    <td><span id="seal_version">加载中...</span></td>
+                    <td><span id="seal_date">加载中...</span></td>
+                    <td><a id="seal_link" href="#" target="_blank">下载</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/localsend/localsend" target="_blank">localsend/localsend</a></td>
+                    <td><span id="localsend_version">加载中...</span></td>
+                    <td><span id="localsend_date">加载中...</span></td>
+                    <td><a id="localsend_link" href="#" target="_blank">下载</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="note">
+            数据从 GitHub API 获取，可能存在延迟。刷新页面以获取最新信息。<br>
+            上次更新时间：<span id="last_updated">加载中...</span>
+        </p>
+
+    </div>
+
+    <script>
+        // JavaScript 用于从 GitHub API 获取数据并更新页面
+        // 注意：GitHub API 有请求频率限制（未认证用户每小时60次），频繁刷新可能导致临时无法加载数据。
+        // 如果你需要更高的频率，可以考虑使用 Personal Access Token。
+
+        const repositories = [
+            { owner: '2dust', repo: 'v2rayNG', idPrefix: 'v2rayNG' },
+            { owner: '2dust', repo: 'v2rayN', idPrefix: 'v2rayN' },
+            { owner: 'MetaCubeX', repo: 'ClashMetaForAndroid', idPrefix: 'clashmeta' },
+            { owner: 'session-foundation', repo: 'session-android', idPrefix: 'session' },
+            { owner: 'TeamNewPipe', repo: 'NewPipe', idPrefix: 'newpipe' },
+            { owner: 'SagerNet', repo: 'sing-box', idPrefix: 'singbox' },
+            { owner: 'mihomo-party-org', repo: 'mihomo-party', idPrefix: 'mihomo' },
+            { owner: 'MatsuriDayo', repo: 'NekoBoxForAndroid', idPrefix: 'nekobox' },
+            { owner: 'hiddify', repo: 'hiddify-app', idPrefix: 'hiddify' },
+            { owner: 'yt-dlp', repo: 'yt-dlp', idPrefix: 'ytdlp' },
+            { owner: 'JunkFood02', repo: 'Seal', idPrefix: 'seal' },
+            { owner: 'localsend', repo: 'localsend', idPrefix: 'localsend' },
+        ];
+
+        async function fetchReleaseInfo(owner, repo) {
+            const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error(`Failed to fetch release for ${owner}/${repo}:`, error);
+                return null;
+            }
+        }
+
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleString('zh-CN', { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+        }
+
+        async function updateReleaseInfo() {
+            for (const repoInfo of repositories) {
+                const release = await fetchReleaseInfo(repoInfo.owner, repoInfo.repo);
+                if (release) {
+                    document.getElementById(`${repoInfo.idPrefix}_version`).textContent = release.tag_name || release.name || 'N/A';
+                    document.getElementById(`${repoInfo.idPrefix}_date`).textContent = formatDate(release.published_at);
+                    const downloadLinkElement = document.getElementById(`${repoInfo.idPrefix}_link`);
+                    downloadLinkElement.href = release.html_url; // 指向 release 页面
+                    downloadLinkElement.textContent = '详情/下载'; // 链接文本
+                } else {
+                    document.getElementById(`${repoInfo.idPrefix}_version`).textContent = '获取失败';
+                    document.getElementById(`${repoInfo.idPrefix}_date`).textContent = 'N/A';
+                    document.getElementById(`${repoInfo.idPrefix}_link`).href = `https://github.com/${repoInfo.owner}/${repoInfo.repo}/releases`;
+                    document.getElementById(`${repoInfo.idPrefix}_link`).textContent = '查看';
+                }
+            }
+            document.getElementById('last_updated').textContent = formatDate(new Date().toISOString());
+        }
+
+        // 页面加载完成后立即更新
+        document.addEventListener('DOMContentLoaded', updateReleaseInfo);
+
+        // 可以选择每隔一段时间自动刷新数据（但要注意GitHub API限制）
+        // setInterval(updateReleaseInfo, 3600 * 1000); // 每小时更新一次，注意频率限制
+    </script>
+
+</body>
+</html>

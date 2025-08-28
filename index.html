@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简链接</title>
+    <style>
+        /* 全局样式和变量 */
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --link-color: #e0e0e0;
+            --link-hover-color: #61afef; /* 链接悬停时的蓝色 */
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 确保页面至少占满视口高度 */
+        }
+
+        /* 容器居中 */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* 页面标题 */
+        .title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        /* 链接列表 */
+        .links-list {
+            list-style: none; /* 移除默认列表圆点 */
+            padding: 0;
+            margin: 0;
+        }
+
+        .links-list li {
+            margin-bottom: 1.5rem; /* 增加链接之间的间距 */
+        }
+
+        /* 链接样式 */
+        .links-list a {
+            color: var(--link-color);
+            text-decoration: none; /* 移除下划线 */
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: color 0.3s ease; /* 添加颜色过渡效果 */
+            display: inline-block; /* 确保链接能够响应 hover */
+        }
+
+        .links-list a:hover {
+            color: var(--link-hover-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">精选导航</h1>
+        <ul class="links-list">
+            <li><a href="https://www.google.com" target="_blank">极简搜索引擎</a></li>
+            <li><a href="https://github.com" target="_blank">代码仓库</a></li>
+            <li><a href="https://www.wikipedia.org" target="_blank">维基百科</a></li>
+            <li><a href="https://www.behance.net" target="_blank">设计灵感</a></li>
+            <li><a href="https://www.bing.com" target="_blank">AI 搜索</a></li>
+            <li><a href="https://www.figma.com" target="_blank">UI 设计工具</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

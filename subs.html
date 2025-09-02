@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的莫兰迪订阅列表</title>
+    <title>subscription-list</title>
     <style>
         /* CSS 变量定义莫兰迪配色 */
         :root {
@@ -150,7 +150,7 @@
 <body>
 
     <div class="container">
-        <h1>我的专属订阅</h1>
+        <h1>subscription-list</h1>
 
         <div id="subscription-list">
             </div>
@@ -159,16 +159,16 @@
 
     <script>
         const subscriptionLinks = [
-            { text: "订阅1", url: "https://example.com/sub1" },
-            { text: "订阅2", url: "https://example.com/sub2" },
-            { text: "订阅3", url: "https://example.com/sub3" },
-            { text: "订阅4", url: "https://example.com/sub4" },
-            { text: "订阅5", url: "https://example.com/sub5" },
-            { text: "订阅6", url: "https://example.com/sub6" },
-            { text: "订阅7", url: "https://example.com/sub7" },
-            { text: "订阅8", url: "https://example.com/sub8" },
-            { text: "订阅9", url: "https://example.com/sub9" },
-            { text: "订阅10", url: "https://example.com/sub10" }
+            { text: "Subscription01", url: "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2" },
+            { text: "Subscription02", url: "https://example.com/sub2" },
+            { text: "Subscription03", url: "https://example.com/sub3" },
+            { text: "Subscription04", url: "https://example.com/sub4" },
+            { text: "Subscription05", url: "https://example.com/sub5" },
+            { text: "Subscription06", url: "https://example.com/sub6" },
+            { text: "Subscription07", url: "https://example.com/sub7" },
+            { text: "Subscription08", url: "https://example.com/sub8" },
+            { text: "Subscription09", url: "https://example.com/sub9" },
+            { text: "Subscription10", url: "https://example.com/sub10" }
         ];
 
         const subscriptionList = document.getElementById('subscription-list');
@@ -187,18 +187,18 @@
 
             const copyButton = document.createElement('button');
             copyButton.className = 'copy-button';
-            copyButton.textContent = '复制';
+            copyButton.textContent = 'copy';
             copyButton.onclick = () => {
                 navigator.clipboard.writeText(item.url)
                     .then(() => {
-                        copyButton.textContent = '已复制!';
+                        copyButton.textContent = 'copied!';
                         setTimeout(() => {
-                            copyButton.textContent = '复制';
+                            copyButton.textContent = 'copy';
                         }, 1500);
                     })
                     .catch(err => {
-                        console.error('复制失败:', err);
-                        alert('复制失败，请手动复制: ' + item.url);
+                        console.error('Copy failed:', err);
+                        alert('Copy failed，Please copy manually: ' + item.url);
                     });
             };
 

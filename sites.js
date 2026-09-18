@@ -20,7 +20,7 @@ const GROUPS = [
   {
     name: '搜索与阅读',
     items: [
-      { name: 'Google', url: 'https://www.google.com', desc: '全球搜索' },
+      { name: '上海学生英文报', url: 'https://flbook.com.cn/u/272955', desc: '英文报' },
       { name: 'Bing', url: 'https://www.bing.com', desc: '微软搜索' },
       { name: '百度', url: 'https://www.baidu.com', desc: '中文搜索' },
       { name: '维基百科', url: 'https://zh.wikipedia.org', desc: '自由百科全书' },

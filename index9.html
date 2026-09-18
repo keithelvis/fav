@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light" data-page-node-id="MAE9yYi2viENgRtrKSsd9B">
+<head data-page-node-id="wfOvdxNqMlapa7u1ZEsPwI">
+<meta charset="utf-8" data-page-node-id="NFoGtOuOLDIEIpbF0GI4Sy">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" data-page-node-id="EXLU2RYgvv1wgQC0k2ztL1">
+<title>导航</title>
+<meta name="description" content="个人常用站点导航" data-page-node-id="cEQlc3jzP9Lg1KifZqkRAb">
+<meta name="theme-color" content="#f7f8fa" data-page-node-id="nVtaXkyqX0EwT0dtAvOekA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236b8e8a'/%3E%3Cpath d='M8 22V10l16 12V10' stroke='%23fff' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" data-page-node-id="vLqutJMebkZFoXIAkGyvgh">
+<link rel="stylesheet" href="style.css" data-page-node-id="UkeeUo4aHdHM2HoQgrkuOn">
+<script>
+  /* 提前应用主题，避免刷新时闪白/闪黑 */
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('nav-theme'); } catch (e) {}
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+</head>
+<body data-page-node-id="OhoAHCgOtXhYu2sm1HmPJq">
+
+<header class="site-header" data-page-node-id="Jr79c4MjSwdjwG5M1GHX5O">
+  <div class="wrap" data-page-node-id="VU9VKVeoCNdvbyIh7pY2Uh">
+    <div data-page-node-id="d65jR8rJRF00dWXqaeqy6w">
+      <h1 class="site-title" id="site-title" data-page-node-id="TP8JTKjGTCeqCt4uInfrev">导航</h1>
+      <p class="site-desc" id="site-desc" data-page-node-id="AEcJ4scHIbix2NI6FBxGM8"></p>
+    </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换深浅色主题" title="切换深浅色主题" data-page-node-id="oZmCxFqOtAOsZBxQiPTroU">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" data-page-node-id="jjxkorKznSQGJdhbzypaet">
+        <circle cx="12" cy="12" r="4.2" data-page-node-id="ofoGakHtGiLm3ovhTTPQsX"/>
+        <path d="M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4" data-page-node-id="PPDdbwC7GwcstHz9kVtmv2"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="i5B0RMH8AxnQKAESYzHBIo">
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" data-page-node-id="44aUCEvHpr36JEd0INt85Q"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap" id="app" data-page-node-id="bmbkf0CMe9SeK3TRPWJeyY"></main>
+
+<footer class="site-footer" data-page-node-id="RfSt47NtjP1Y0iWLA9DKZP">
+  <div class="wrap" id="site-footer" data-page-node-id="Z7nlitlrk27F7HDM42roGR"></div>
+</footer>
+
+<script src="sites.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

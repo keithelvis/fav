@@ -27,6 +27,16 @@ const GROUPS = [
       { name: '资源合集', url: 'https://github.com/knowledgefxg/learning-englishm', desc: '资源合集' },
     ],
   },
+  {
+    name: '效率与文档',
+    items: [
+      { name: '腾讯文档', url: 'https://docs.qq.com', desc: '在线协作文档' },
+      { name: 'Notion', url: 'https://www.notion.so', desc: '知识与笔记' },
+      { name: 'Excalidraw', url: 'https://excalidraw.com', desc: '手绘风白板' },
+      { name: '有道翻译', url: 'https://fanyi.youdao.com', desc: '在线翻译' },
+      { name: 'ProcessOn', url: 'https://www.processon.com', desc: '在线流程图' },
+    ],
+  },
    {
     name: '搜索与阅读',
     items: [
@@ -79,16 +89,7 @@ const GROUPS = [
       { name: 'iconfont', url: 'https://www.iconfont.cn', desc: '图标库' },
     ],
   },
-  {
-    name: '效率与文档',
-    items: [
-      { name: '腾讯文档', url: 'https://docs.qq.com', desc: '在线协作文档' },
-      { name: 'Notion', url: 'https://www.notion.so', desc: '知识与笔记' },
-      { name: 'Excalidraw', url: 'https://excalidraw.com', desc: '手绘风白板' },
-      { name: '有道翻译', url: 'https://fanyi.youdao.com', desc: '在线翻译' },
-      { name: 'ProcessOn', url: 'https://www.processon.com', desc: '在线流程图' },
-    ],
-  },
+  
   {
     name: '影音与生活',
     items: [

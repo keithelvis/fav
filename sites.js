@@ -27,6 +27,16 @@ const GROUPS = [
       { name: '知乎', url: 'https://www.zhihu.com', desc: '中文问答社区' },
     ],
   },
+   {
+    name: '搜索与阅读',
+    items: [
+      { name: 'Google', url: 'https://www.google.com', desc: '全球搜索' },
+      { name: 'Bing', url: 'https://www.bing.com', desc: '微软搜索' },
+      { name: '百度', url: 'https://www.baidu.com', desc: '中文搜索' },
+      { name: '维基百科', url: 'https://zh.wikipedia.org', desc: '自由百科全书' },
+      { name: '知乎', url: 'https://www.zhihu.com', desc: '中文问答社区' },
+    ],
+  },
   {
     name: 'AI 工具',
     items: [

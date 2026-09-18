@@ -18,13 +18,13 @@ const SITE_DESC = '个人常用站点';
 
 const GROUPS = [
   {
-    name: '搜索与阅读',
+    name: '外语期刊',
     items: [
       { name: '上海学生英文报', url: 'https://flbook.com.cn/u/272955', desc: '英文报' },
-      { name: 'Bing', url: 'https://www.bing.com', desc: '微软搜索' },
-      { name: '百度', url: 'https://www.baidu.com', desc: '中文搜索' },
-      { name: '维基百科', url: 'https://zh.wikipedia.org', desc: '自由百科全书' },
-      { name: '知乎', url: 'https://www.zhihu.com', desc: '中文问答社区' },
+      { name: 'China Daily', url: 'https://www.chinadaily.com.cn/', desc: 'China Daily' },
+      { name: '人民日报', url: 'https://en.people.cn/', desc: '人民日报' },
+      { name: 'Magzinelib', url: 'https://magazinelib.com/g', desc: 'Magzinelib' },
+      { name: '资源合集', url: 'https://github.com/knowledgefxg/learning-englishm', desc: '资源合集' },
     ],
   },
    {

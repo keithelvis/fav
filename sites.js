@@ -38,6 +38,16 @@ const GROUPS = [
     ],
   },
   {
+    name: '常用工具',
+    items: [
+      { name: '牛津词典', url: 'https://www.oed.com/', desc: '牛津词典' },
+      { name: 'DeepL', url: 'https://www.deepl.com/zh/translator', desc: 'DeepL' },
+      { name: '百度', url: 'https://www.baidu.com', desc: '中文搜索' },
+      { name: '维基百科', url: 'https://zh.wikipedia.org', desc: '自由百科全书' },
+      { name: '知乎', url: 'https://www.zhihu.com', desc: '中文问答社区' },
+    ],
+  },
+  {
     name: 'AI 工具',
     items: [
       { name: 'WorkBuddy', url: 'https://www.workbuddy.cn', desc: 'AI 工作助手' },
